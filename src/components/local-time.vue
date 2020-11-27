@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Local Time: {{ time }}</p>
+    <p>{{ time }}</p>
   </div>
 </template>
 <script>
@@ -26,4 +26,7 @@ export default {
 };
 </script>
 <style scoped>
+p {
+  font-family: "Orbitron", Helvetica, Arial, sans-serif;
+}
 </style>
