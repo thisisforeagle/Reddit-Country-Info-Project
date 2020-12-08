@@ -74,7 +74,7 @@ export default {
       });
       console.log(city);
       this.cities.push({
-        name: this.cityChoices[city.value],
+        name: this.cityChoices[4],
         images: [],
       });
     },
