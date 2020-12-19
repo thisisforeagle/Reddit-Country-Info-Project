@@ -42,75 +42,31 @@ export default {
   },
   data() {
     return {
-      cities: [
-        {
-          name: "New York",
-          images: [],
-        },
-      ],
-      availableCities: [],
-      cityChoices: [],
+      cities: [],
     };
   },
-  watch: {
-    cities: function () {
-      console.log(this.cities);
-    },
-  },
+  watch: {},
   methods: {
-    async getAvailableCities() {
-      const available = await axios.get(
-        `https://api.teleport.org/api/urban_areas/`
-      );
-      //this.cityChoices = available.data._links["ua:item"];
-      this.buildCitiesChoices(available.data._links["ua:item"]);
-    },
     async addCity() {
       const city = await Swal.fire({
         title: "Add a city",
         input: "select",
-        inputOptions: this.cityChoices,
+        inputOptions: {
+          "New York": "New York",
+          Amsterdam: "Amsterdam",
+          "Los Angeles": "Los Angeles",
+        },
         inputPlaceholder: "Select a city",
       });
       console.log(city);
       this.cities.push({
-        name: this.cityChoices[4],
+        name: city.value,
         images: [],
       });
-    },
-    buildCitiesChoices(cities) {
-      console.log(cities);
-      /*
-      if (cities && cities.length > 0) {
-        const selectstart = "<select>";
-        const selectend = "</select>";
-        const optionstart = "<option>";
-        const optionend = "</option>";
-
-        const cityChoices = [];
-        cityChoices.push(selectstart);
-
-        cities.forEach((city) => {
-          cityChoices.push(optionstart);
-          cityChoices.push(city.name);
-          cityChoices.push(optionend);
-        });
-        cityChoices.push(selectend);
-        cityChoices.join();
-        console.log(cityChoices);
-        this.cityChoicesHTML = cityChoices;
-      }
-      */
-      cities.forEach((city) => {
-        this.cityChoices.push(city.name);
-      });
-      console.log(this.cityChoices);
     },
   },
   mounted() {
     this.viewerTZoffset = new Date().getTimezoneOffset();
-    this.getAvailableCities();
-    console.log(this.availableCities);
   },
 };
 </script>
@@ -132,7 +88,7 @@ export default {
 }
 .city {
   flex: auto;
-  height: 445px;
+  min-height: 445px;
   min-width: 150px;
   margin: 0 8px 8px 0; /* Some gutter */
 }

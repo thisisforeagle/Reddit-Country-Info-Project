@@ -2,16 +2,22 @@
   <div class="weather p-2 justify-content-center shadow bg-white rounded">
     <div class="card-content" v-if="weatherinfo != null">
       <h3 class="m-0">{{ weatherinfo.name }}, {{ weatherinfo.sys.country }}</h3>
-      <p>{{ weatherinfo.weather[0].main }}</p>
-      <p>{{ weatherinfo.coord.lat }}, {{ weatherinfo.coord.lon }}</p>
+      <p class="weather-info-text">{{ weatherinfo.weather[0].main }}</p>
+      <p>
+        <strong>Lat/Long: </strong>{{ weatherinfo.coord.lat }},
+        {{ weatherinfo.coord.lon }}
+      </p>
       <p><strong>Wind speed:</strong> {{ weatherinfo.wind.speed }}mph</p>
       <p><strong>Wind deg:</strong> {{ weatherinfo.wind.deg }}&deg;</p>
       <p><strong>Pressure:</strong> {{ weatherinfo.main.pressure }}</p>
-      <p><strong>Timezone:</strong> {{ weatherinfo.timezone / 3600 }}</p>
+      <p>
+        <strong>Timezone:</strong>
+        {{ getTimeZoneInfo(weatherinfo.timezone / 3600) }}
+      </p>
       <p class="time">
+        {{ new Date().toLocaleDateString() }} -
         {{ getCurrentTime(weatherinfo.timezone / 3600) }}
       </p>
-      <p class="updated">Last updated: {{ lastupdated }}</p>
       <photos :city="weatherinfo.name" />
     </div>
     <loading v-if="weatherinfo == null" />
@@ -38,7 +44,6 @@ export default {
     return {
       weatherinfo: null,
       apicall: null,
-      lastupdated: null,
     };
   },
   methods: {
@@ -55,23 +60,25 @@ export default {
     getCurrentTime(offset) {
       const time = new Date();
       const hours = time.getHours();
+      const myOffset = time.getTimezoneOffset();
 
-      offset > 0
-        ? time.setHours(hours - offset)
-        : time.setHours(hours - offset);
+      console.log(offset);
+
+      if (offset > 0) {
+        console.log(`Removing ${offset} hours from current time`);
+        time.setHours(hours + offset);
+      } else {
+        console.log(`Adding ${offset} hours to current time`);
+        time.setHours(hours - offset);
+      }
 
       return new Date(time).toLocaleTimeString();
     },
-    updated() {
-      if (this.apicall) {
-        this.lastupdated = timeago.format(this.apicall);
-        console.log(this.lastupdated);
-        setTimeout(() => {
-          this.updated();
-        }, 1000);
+    getTimeZoneInfo(offset) {
+      if (offset > 0) {
+        return `Math.abs(${offset}) hours ahead`;
       } else {
-        console.log(this.lastupdated);
-        this.lastupdated = "never";
+        return `Math.abs(${offset}) hours behind`;
       }
     },
   },
@@ -89,8 +96,9 @@ export default {
 .time {
   font-family: "Orbitron", Helvetica, Arial, sans-serif;
 }
-.updated {
-  font-size: 0.6em;
-  color: #adb5bd;
+.weather-info-text {
+  font-weight: bold;
+  color: #2972a78c;
+  font-size: 2em;
 }
 </style>

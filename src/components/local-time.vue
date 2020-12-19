@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>{{ time }}</p>
+    <p>{{ new Date().toLocaleDateString() }} - {{ time }}</p>
   </div>
 </template>
 <script>
