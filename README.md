@@ -1,18 +1,8 @@
 # Reddit-Country-Info-Project
 Created with CodeSandbox
 
-## Project Instructions
+## Will not work correctly if downloaded and run locally
 
-Download zip file. Open extracted directory in VS Code
+## Please for codesandbox and edit code there if needed
 
-Run the following in terminal, as required.
-
-### Install dependancies
-`npm i`
-
-### Run locally
-`npm run dev`
-
-The app should be running locally. Information provided in terminal window
-
-Open the following in your browser: `localhost:8080`
+## I will provide fully working code when project is completed
