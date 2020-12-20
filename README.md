@@ -3,6 +3,10 @@ Created with CodeSandbox
 
 ## Will not work correctly if downloaded and run locally
 
-## Please for codesandbox and edit code there if needed
+## Please fork codesandbox below and edit code there if needed
 
-## I will provide fully working code when project is completed
+`https://codesandbox.io/s/tender-waterfall-vci9e`
+
+
+
+### I will provide fully working code when project is completed
