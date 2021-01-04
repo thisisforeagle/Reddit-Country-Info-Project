@@ -65,20 +65,24 @@ export default {
       console.log(offset);
 
       if (offset > 0) {
-        console.log(`Removing ${offset} hours from current time`);
-        time.setHours(hours + offset);
-      } else {
-        console.log(`Adding ${offset} hours to current time`);
+        console.log(`${hours}: Adding ${offset} hours from current time`);
         time.setHours(hours - offset);
+        console.log(time);
+        console.log(new Date(time).toTimeString().split(" ")[0]);
+      } else {
+        console.log(`${time}: Removing ${offset} hours to current time`);
+        time.setHours(hours + offset);
+        console.log(hours);
+        console.log(new Date(time).toTimeString().split(" ")[0]);
       }
 
-      return new Date(time).toLocaleTimeString();
+      return new Date(time).toTimeString().split(" ")[0];
     },
     getTimeZoneInfo(offset) {
       if (offset > 0) {
-        return `Math.abs(${offset}) hours ahead`;
+        return `${Math.abs(offset)} hours ahead`;
       } else {
-        return `Math.abs(${offset}) hours behind`;
+        return `${Math.abs(offset)} hours behind`;
       }
     },
   },
